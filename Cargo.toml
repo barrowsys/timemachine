@@ -1,0 +1,13 @@
+[package]
+name = "timemachine"
+version = "0.1.0"
+authors = ["Ezra Barrow <barrow@tilde.team>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dev-dependencies]
+dialoguer = "0.7.1"
+regex = "1"
+lazy_static = "1.4.0"
+console = "0.14.0"
