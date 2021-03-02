@@ -11,7 +11,7 @@
  * -Ezra Barrow
  * --------------------
  */
-#![warn(missing_docs)]
+#![allow(missing_docs)]
 //! Temporary Crate Docs
 
 use std::collections::HashMap;
