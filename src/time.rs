@@ -47,7 +47,7 @@ use std::fmt;
 /// // Force hour precision
 /// println!("{:.1}", sevensecondspastone); // Outputs "01"
 /// ```
-/// 
+///
 #[derive(Debug, PartialEq, Eq, Clone, Hash)]
 pub struct Time(pub u8, pub u8, pub u8);
 impl Time {
@@ -133,7 +133,11 @@ impl Time {
     /// Inverse of [as_seconds](#method.as_seconds)
     pub fn from_seconds(seconds: u32) -> Self {
         let minutes = seconds / 60;
-        Self::new_hms(((minutes / 60) % 24) as u8, (minutes % 60) as u8, (seconds % 60) as u8)
+        Self::new_hms(
+            ((minutes / 60) % 24) as u8,
+            (minutes % 60) as u8,
+            (seconds % 60) as u8,
+        )
     }
 }
 impl cmp::PartialOrd for Time {
@@ -196,25 +200,68 @@ pub struct Clock {
 }
 impl Clock {
     pub fn seconds() -> Self {
-        Self { hour: 0, minute: 0, second: 0, hour_inc: 0, minute_inc: 0, second_inc: 1}
+        Self {
+            hour: 0,
+            minute: 0,
+            second: 0,
+            hour_inc: 0,
+            minute_inc: 0,
+            second_inc: 1,
+        }
     }
     pub fn minutes() -> Self {
-        Self { hour: 0, minute: 0, second: 0, hour_inc: 0, minute_inc: 1, second_inc: 0}
+        Self {
+            hour: 0,
+            minute: 0,
+            second: 0,
+            hour_inc: 0,
+            minute_inc: 1,
+            second_inc: 0,
+        }
     }
     pub fn hours() -> Self {
-        Self { hour: 0, minute: 0, second: 0, hour_inc: 1, minute_inc: 0, second_inc: 0}
+        Self {
+            hour: 0,
+            minute: 0,
+            second: 0,
+            hour_inc: 1,
+            minute_inc: 0,
+            second_inc: 0,
+        }
     }
     pub fn every(hours: u8, minutes: u8, seconds: u8) -> Self {
-        Self { hour: 0, minute: 0, second: 0, hour_inc: hours, minute_inc: minutes, second_inc: seconds }
+        Self {
+            hour: 0,
+            minute: 0,
+            second: 0,
+            hour_inc: hours,
+            minute_inc: minutes,
+            second_inc: seconds,
+        }
     }
     pub fn from_h(self, hour: u8) -> Self {
-        Self { hour: hour % 24, minute: 0, second: 0, ..self}
+        Self {
+            hour: hour % 24,
+            minute: 0,
+            second: 0,
+            ..self
+        }
     }
     pub fn from_hm(self, hour: u8, minute: u8) -> Self {
-        Self { hour: hour % 24, minute: minute % 60, second: 0, ..self}
+        Self {
+            hour: hour % 24,
+            minute: minute % 60,
+            second: 0,
+            ..self
+        }
     }
     pub fn from_hms(self, hour: u8, minute: u8, second: u8) -> Self {
-        Self { hour: hour % 24, minute: minute % 60, second: second % 60, ..self}
+        Self {
+            hour: hour % 24,
+            minute: minute % 60,
+            second: second % 60,
+            ..self
+        }
     }
 }
 impl Iterator for Clock {

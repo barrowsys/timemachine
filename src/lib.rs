@@ -17,9 +17,9 @@
 use std::collections::HashMap;
 
 mod time;
+pub use time::Clock;
 #[doc(inline)]
 pub use time::Time;
-pub use time::Clock;
 
 pub enum Error {
     Generic(String),
@@ -33,7 +33,9 @@ pub struct TimeMachine<S: Clone> {
 }
 impl<S: Clone> TimeMachine<S> {
     pub fn new() -> Self {
-        Self { edges: HashMap::new() }
+        Self {
+            edges: HashMap::new(),
+        }
     }
     pub fn add_transition(&mut self, time: Time, new_state: S) {
         self.edges.insert(time, new_state);

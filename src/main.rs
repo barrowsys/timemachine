@@ -12,7 +12,7 @@
  * --------------------
  */
 
-use timemachine::{Time, TimeMachine, Clock};
+use timemachine::{Clock, Time, TimeMachine};
 
 // fn tm_1(t: &Time, s: &Schedule) -> Option<State> {
 //     fn state_from(n: usize) -> Option<State> {
@@ -77,52 +77,52 @@ use timemachine::{Time, TimeMachine, Clock};
 // }
 
 fn main() {
-//     let time1 = Time::new_h(7);
-//     let sched1 = Schedule::new(7, 0, 8, 0, 20, 30, 22, 0);
-//     println!("Hello, world!");
-//     println!("{:?}", time1);
-//     println!("{:?}", sched1);
-//     println!("{:#4?}", sched1);
-//     println!("");
-//     let scheds = vec![
-//         Schedule::new(7, 0, 8, 0, 20, 30, 22, 0),    // NightDark
-//         Schedule::new(7, 0, 8, 0, 18, 0, 22, 0),     // NightDark
-//         Schedule::new(7, 0, 8, 0, 23, 0, 23, 59),    // NightDark
-//         Schedule::new(7, 0, 8, 0, 1, 0, 1, 30),      // DayWhite
+    //     let time1 = Time::new_h(7);
+    //     let sched1 = Schedule::new(7, 0, 8, 0, 20, 30, 22, 0);
+    //     println!("Hello, world!");
+    //     println!("{:?}", time1);
+    //     println!("{:?}", sched1);
+    //     println!("{:#4?}", sched1);
+    //     println!("");
+    //     let scheds = vec![
+    //         Schedule::new(7, 0, 8, 0, 20, 30, 22, 0),    // NightDark
+    //         Schedule::new(7, 0, 8, 0, 18, 0, 22, 0),     // NightDark
+    //         Schedule::new(7, 0, 8, 0, 23, 0, 23, 59),    // NightDark
+    //         Schedule::new(7, 0, 8, 0, 1, 0, 1, 30),      // DayWhite
 
-//         // Midnight after dawn
-//         Schedule::new(22, 30, 23, 30, 7, 0, 8, 0),   // DayWhite
-//         Schedule::new(23, 0, 0, 0, 7, 0, 8, 0),      // DayWhite
-//         // Midnight during dawn
-//         Schedule::new(23, 30, 0, 30, 7, 0, 8, 0),    // DawnRed
-//         Schedule::new(0, 0, 1, 0, 7, 0, 8, 0),       // DawnRed
-//         // Midnight before dawn
-//         Schedule::new(0, 30, 1, 30, 7, 0, 8, 0),     // NightDark
+    //         // Midnight after dawn
+    //         Schedule::new(22, 30, 23, 30, 7, 0, 8, 0),   // DayWhite
+    //         Schedule::new(23, 0, 0, 0, 7, 0, 8, 0),      // DayWhite
+    //         // Midnight during dawn
+    //         Schedule::new(23, 30, 0, 30, 7, 0, 8, 0),    // DawnRed
+    //         Schedule::new(0, 0, 1, 0, 7, 0, 8, 0),       // DawnRed
+    //         // Midnight before dawn
+    //         Schedule::new(0, 30, 1, 30, 7, 0, 8, 0),     // NightDark
 
-//         // Midnight after dusk
-//         Schedule::new(7, 0, 8, 0, 22, 30, 23, 30),   // NightDark
-//         Schedule::new(7, 0, 8, 0, 23, 0, 0, 0),      // NightDark
-//         // Midnight during dusk
-//         Schedule::new(7, 0, 8, 0, 23, 30, 0, 30),    // DuskRed
-//         Schedule::new(7, 0, 8, 0, 0, 0, 1, 0),       // DuskRed
-//         // Midnight before dusk
-//         Schedule::new(7, 0, 8, 0, 0, 30, 1, 30),     // DayWhite
-//     ];
-//     // println!("time_based_switching");
-//     // let test = mktest(arduino_current);
-//     // for sched in scheds.iter() {
-//     //     test(&sched);
-//     // }
-//     println!("\ntm_1");
-//     let test = mktest(tm_1);
-//     for sched in scheds.iter() {
-//         test(&sched);
-//     }
-//     println!("\ntm_2");
-//     let test = mktest(tm_2);
-//     for sched in scheds.iter() {
-//         test(&sched);
-//     }
+    //         // Midnight after dusk
+    //         Schedule::new(7, 0, 8, 0, 22, 30, 23, 30),   // NightDark
+    //         Schedule::new(7, 0, 8, 0, 23, 0, 0, 0),      // NightDark
+    //         // Midnight during dusk
+    //         Schedule::new(7, 0, 8, 0, 23, 30, 0, 30),    // DuskRed
+    //         Schedule::new(7, 0, 8, 0, 0, 0, 1, 0),       // DuskRed
+    //         // Midnight before dusk
+    //         Schedule::new(7, 0, 8, 0, 0, 30, 1, 30),     // DayWhite
+    //     ];
+    //     // println!("time_based_switching");
+    //     // let test = mktest(arduino_current);
+    //     // for sched in scheds.iter() {
+    //     //     test(&sched);
+    //     // }
+    //     println!("\ntm_1");
+    //     let test = mktest(tm_1);
+    //     for sched in scheds.iter() {
+    //         test(&sched);
+    //     }
+    //     println!("\ntm_2");
+    //     let test = mktest(tm_2);
+    //     for sched in scheds.iter() {
+    //         test(&sched);
+    //     }
 }
 
 // fn mktest(f: fn(&Time, &Schedule) -> Option<State>) -> Box<dyn Fn(&Schedule)> {

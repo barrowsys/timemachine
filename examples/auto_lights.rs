@@ -12,12 +12,12 @@
  * --------------------
  */
 
-use timemachine::{Time, TimeMachine, Clock};
 use console::Term;
 use dialoguer::Input;
+use regex::Regex;
 #[allow(deprecated)]
 use std::thread::sleep_ms;
-use regex::Regex;
+use timemachine::{Clock, Time, TimeMachine};
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum State {
@@ -39,9 +39,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     for t in Clock::minutes() {
         term.write_line(&format!("The time is {:#.2}    ", &t))?;
         term.write_str(match tm.get_state(&t).ok().unwrap() {
-            State::NightDark   => "it is dark           ",
+            State::NightDark => "it is dark           ",
             State::DuskDawnRed => "the red light is on  ",
-            State::DayWhite    => "the white light is on",
+            State::DayWhite => "the white light is on",
         })?;
         sleep_ms(50);
         term.move_cursor_up(1)?;
@@ -75,10 +75,10 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
                 if m.as_str() == "PM" {
                     hour += 12;
                 }
-            },
+            }
             None => {
                 hour = hour % 24;
-            },
+            }
         };
         Time::new_hm(hour, minute)
     };
@@ -86,9 +86,7 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
         .with_prompt("How many minutes before should the red light turn on?")
         .default(60)
         .interact_text()?;
-    let dawn1 = Time::from_seconds(
-        dawn2.as_seconds() - (dawn_length * 60) as u32
-    );
+    let dawn1 = Time::from_seconds(dawn2.as_seconds() - (dawn_length * 60) as u32);
     let dusk2: String = Input::new()
         .with_prompt("What time should the white light turn off in the evening?")
         .default("21:00".into())
@@ -110,10 +108,10 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
                 if m.as_str() == "PM" {
                     hour += 12;
                 }
-            },
+            }
             None => {
                 hour = hour % 24;
-            },
+            }
         };
         Time::new_hm(hour, minute)
     };
@@ -121,8 +119,6 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
         .with_prompt("How many minutes after should the red light stay on?")
         .default(60)
         .interact_text()?;
-    let dusk2 = Time::from_seconds(
-        dusk1.as_seconds() + (dusk_length * 60) as u32
-    );
+    let dusk2 = Time::from_seconds(dusk1.as_seconds() + (dusk_length * 60) as u32);
     Ok((dawn1, dawn2, dusk1, dusk2))
 }
