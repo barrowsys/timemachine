@@ -100,7 +100,7 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
             }
         })
         .interact_text()?;
-    let dusk2 = {
+    let dusk1 = {
         let captures = time_re.captures(&dusk2).unwrap();
         let mut hour: u8 = captures.get(1).unwrap().as_str().parse().unwrap();
         let minute: u8 = captures.get(2).unwrap().as_str().parse().unwrap();
@@ -121,8 +121,8 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
         .with_prompt("How many minutes after should the red light stay on?")
         .default(60)
         .interact_text()?;
-    let dusk1 = Time::from_seconds(
-        dusk2.as_seconds() - (dusk_length * 60) as u32
+    let dusk2 = Time::from_seconds(
+        dusk1.as_seconds() + (dusk_length * 60) as u32
     );
     Ok((dawn1, dawn2, dusk1, dusk2))
 }
