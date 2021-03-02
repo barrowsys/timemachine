@@ -239,7 +239,7 @@ impl Clock {
             second_inc: seconds,
         }
     }
-    pub fn from_h(self, hour: u8) -> Self {
+    pub fn start_h(self, hour: u8) -> Self {
         Self {
             hour: hour % 24,
             minute: 0,
@@ -247,7 +247,7 @@ impl Clock {
             ..self
         }
     }
-    pub fn from_hm(self, hour: u8, minute: u8) -> Self {
+    pub fn start_hm(self, hour: u8, minute: u8) -> Self {
         Self {
             hour: hour % 24,
             minute: minute % 60,
@@ -255,7 +255,7 @@ impl Clock {
             ..self
         }
     }
-    pub fn from_hms(self, hour: u8, minute: u8, second: u8) -> Self {
+    pub fn start_hms(self, hour: u8, minute: u8, second: u8) -> Self {
         Self {
             hour: hour % 24,
             minute: minute % 60,
@@ -277,11 +277,11 @@ impl Iterator for Clock {
             self.second += self.second_inc;
             if self.second >= 60 {
                 self.minute += self.second / 60;
-                self.second = self.second % 60;
+                self.second %= 60;
             }
             if self.minute >= 60 {
                 self.hour += self.minute / 60;
-                self.minute = self.minute % 60;
+                self.minute %= 60;
             }
             // if self.hour >= 24 {
             //     self.day += self.hour / 24;

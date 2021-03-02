@@ -27,7 +27,7 @@ pub enum Error {
 }
 type Result<T> = std::result::Result<T, Error>;
 
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct TimeMachine<S: Clone> {
     edges: HashMap<Time, S>,
 }
@@ -41,7 +41,7 @@ impl<S: Clone> TimeMachine<S> {
         self.edges.insert(time, new_state);
     }
     pub fn get_state(&self, time: &Time) -> Result<S> {
-        if self.edges.len() == 0 {
+        if self.edges.is_empty() {
             return Err(Error::EmptyTimeMachine);
         }
         // let mut ret = self.edges.keys().next().unwrap().clone();
