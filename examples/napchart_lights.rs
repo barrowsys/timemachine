@@ -32,8 +32,10 @@ impl Default for State {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let napchart = Napchart::get_from_server("3tbkt")?;
+
     let tm: TimeMachine<Option<napchart::ElementData>> =
         TimeMachine::from_napchart(&napchart.lanes[0]);
+
     let tm: TimeMachine<State> = tm.map_states_or_default(|elem| {
         // use map_states_or_default to .unwrap_or_default the return value
         if let Some(e) = elem {

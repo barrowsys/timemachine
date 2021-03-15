@@ -27,8 +27,10 @@ pub enum State {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let napchart = Napchart::get_from_server("cse2j")?;
+
     let tm: TimeMachine<Option<napchart::ElementData>> =
         TimeMachine::from_napchart(&napchart.lanes[0]);
+
     let tm: TimeMachine<Option<State>> = tm.map_states(|elem| {
         // use map_states here to map directly to Option<State>s
         if let Some(e) = elem {
