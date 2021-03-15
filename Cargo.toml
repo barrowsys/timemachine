@@ -17,3 +17,11 @@ dialoguer = "0.7.1"
 regex = "1"
 lazy_static = "1.4.0"
 console = "0.14.0"
+
+[[example]]
+name = "napchart_lights"
+required-features = ["napchart"]
+
+[[example]]
+name = "napchart_lights_option"
+required-features = ["napchart"]
