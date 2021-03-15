@@ -27,17 +27,22 @@ pub enum State {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let napchart = Napchart::get_from_server("cse2j")?;
-    let tm: TimeMachine<Option<State>> = TimeMachine::from_napchart(&napchart.lanes[0], |elem| {
-        match elem.color.as_str() {
-            "red" => Some(Some(State::DuskDawnRed)), // Outer Some() indicates the mapping is valid
-            "gray" => Some(Some(State::NightDark)), // Inner Some() is the Option<State> that gets added to the time machine
-            "blue" => Some(Some(State::DayWhite)),
-            _ => None, // Return None to indicate there is no mapping and replace it with State::default()
-            // Really, you should use a type that implements default as your state type,
-            // rather than wrapping it in an Option<T>.
-            // See examples/napchart_lights.rs for something that makes more sense
+    let tm: TimeMachine<Option<napchart::ElementData>> =
+        TimeMachine::from_napchart(&napchart.lanes[0]);
+    let tm: TimeMachine<Option<State>> = tm.map_states(|elem| {
+        // use map_states here to map directly to Option<State>s
+        if let Some(e) = elem {
+            match e.color.as_str() {
+                "red" => Some(State::DuskDawnRed),
+                "gray" => Some(State::NightDark),
+                _ => None,
+            }
+        } else {
+            None
         }
     });
+
+    // Display code
     let term = Term::stdout();
     term.write_line("")?;
     term.hide_cursor()?;

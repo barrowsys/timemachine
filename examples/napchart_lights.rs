@@ -32,14 +32,24 @@ impl Default for State {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let napchart = Napchart::get_from_server("3tbkt")?;
-    let tm: TimeMachine<State> =
-        TimeMachine::from_napchart(&napchart.lanes[0], |elem| match elem.color.as_str() {
-            "red" => Some(State::DuskDawnRed),
-            "gray" => Some(State::NightDark),
-            _ => None, // no valid mapping, element is replaced with State::default()
-            // Note that the element is not ignored how u might think, it is replaced with the default state
-            // Surrounding elements do not expand to fill the space
-        });
+    let tm: TimeMachine<Option<napchart::ElementData>> =
+        TimeMachine::from_napchart(&napchart.lanes[0]);
+    let tm: TimeMachine<State> = tm.map_states_or_default(|elem| {
+        // use map_states_or_default to .unwrap_or_default the return value
+        if let Some(e) = elem {
+            match e.color.as_str() {
+                "red" => Some(State::DuskDawnRed),
+                "gray" => Some(State::NightDark),
+                _ => None, // no valid mapping, element is replaced with State::default()
+                           // Note that the element is not ignored how u might think, it is replaced with the default state
+                           // Surrounding elements do not expand to fill the space
+            }
+        } else {
+            None
+        }
+    });
+
+    // Display Code
     let term = Term::stdout();
     term.write_line("")?;
     term.hide_cursor()?;

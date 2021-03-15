@@ -12,9 +12,9 @@
  * --------------------
  */
 #![allow(missing_docs)]
-//! Temporary Crate Docs
 
 use std::collections::HashMap;
+use std::iter::FromIterator;
 
 mod time;
 pub use time::Clock;
@@ -31,35 +31,54 @@ type Result<T> = std::result::Result<T, Error>;
 pub struct TimeMachine<S: Clone> {
     edges: HashMap<Time, S>,
 }
-impl<S: Clone + Default> TimeMachine<S> {
-    pub fn add_state(&mut self, start_time: Time, end_time: Time, state: S) {
-        self.add_transition(start_time, state);
-        if !self.edges.contains_key(&end_time) {
-            self.add_transition(end_time, S::default());
-        }
-    }
-    #[cfg(feature = "napchart")]
-    pub fn from_napchart<F>(lane: &napchart::ChartLane, mapping: F) -> Self
-    where
-        F: Fn(&napchart::ChartElement) -> Option<S>,
-    {
-        let mut tm = Self::new();
+#[cfg(feature = "napchart")]
+impl TimeMachine<Option<napchart::ElementData>> {
+    pub fn from_napchart(lane: &napchart::ChartLane) -> TimeMachine<Option<napchart::ElementData>> {
+        let mut tm = TimeMachine::new();
         for elem in lane.elements.iter() {
-            if let Some(mapped) = mapping(elem) {
-                tm.add_state(
-                    Time::from_minutes(elem.start),
-                    Time::from_minutes(elem.end),
-                    mapped,
-                );
+            tm.add_transition(Time::from_minutes(elem.start), Some(elem.data.clone()));
+            if !tm.edges.contains_key(&Time::from_minutes(elem.end)) {
+                tm.add_transition(Time::from_minutes(elem.end), None);
             }
         }
         tm
+    }
+}
+impl<S: Clone + Default> TimeMachine<S> {
+    // pub fn add_state(&mut self, start_time: Time, end_time: Time, state: S) {
+    //     self.add_transition(start_time, state);
+    //     if !self.edges.contains_key(&end_time) {
+    //         self.add_transition(end_time, S::default());
+    //     }
+    // }
+    // ^^^^ this doesnt handle edge cases very well
+    pub fn map_states_or_default<F, R>(self, mapfn: F) -> TimeMachine<R>
+    where
+        F: Fn(S) -> Option<R>,
+        R: Clone + Default,
+    {
+        TimeMachine {
+            edges: HashMap::from_iter(
+                self.edges
+                    .into_iter()
+                    .map(|(k, v)| (k, mapfn(v).unwrap_or_default())),
+            ),
+        }
     }
 }
 impl<S: Clone> TimeMachine<S> {
     pub fn new() -> Self {
         Self {
             edges: HashMap::new(),
+        }
+    }
+    pub fn map_states<F, R>(self, mapfn: F) -> TimeMachine<R>
+    where
+        F: Fn(S) -> R,
+        R: Clone,
+    {
+        TimeMachine {
+            edges: HashMap::from_iter(self.edges.into_iter().map(|(k, v)| (k, mapfn(v)))),
         }
     }
     pub fn add_transition(&mut self, time: Time, state: S) {
