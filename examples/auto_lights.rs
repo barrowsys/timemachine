@@ -43,7 +43,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             State::DuskDawnRed => "the red light is on  ",
             State::DayWhite => "the white light is on",
         })?;
-        sleep_ms(50);
+        sleep_ms(25);
         term.move_cursor_up(1)?;
         term.move_cursor_left(21)?;
     }

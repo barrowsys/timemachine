@@ -1,12 +1,16 @@
 [package]
 name = "timemachine"
-version = "0.1.0"
+version = "0.2.0-alpha"
 authors = ["Ezra Barrow <barrow@tilde.team>"]
 edition = "2018"
 license = "MIT"
+readme = "README.md"
 description = "time-based state machine for daily scheduled state transitions"
 repository = "https://github.com/barrowsys/timemachine"
 categories = ["date-and-time", "data-structures"]
+
+[dependencies]
+napchart = { path = "../b4rr0wnet/napchart/napchart", optional = true }
 
 [dev-dependencies]
 dialoguer = "0.7.1"

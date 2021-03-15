@@ -31,20 +31,44 @@ type Result<T> = std::result::Result<T, Error>;
 pub struct TimeMachine<S: Clone> {
     edges: HashMap<Time, S>,
 }
+impl<S: Clone + Default> TimeMachine<S> {
+    pub fn add_state(&mut self, start_time: Time, end_time: Time, state: S) {
+        self.add_transition(start_time, state);
+        if !self.edges.contains_key(&end_time) {
+            self.add_transition(end_time, S::default());
+        }
+    }
+    #[cfg(feature = "napchart")]
+    pub fn from_napchart<F>(lane: &napchart::ChartLane, mapping: F) -> Self
+    where
+        F: Fn(&napchart::ChartElement) -> Option<S>,
+    {
+        let mut tm = Self::new();
+        for elem in lane.elements.iter() {
+            if let Some(mapped) = mapping(elem) {
+                tm.add_state(
+                    Time::from_minutes(elem.start),
+                    Time::from_minutes(elem.end),
+                    mapped,
+                );
+            }
+        }
+        tm
+    }
+}
 impl<S: Clone> TimeMachine<S> {
     pub fn new() -> Self {
         Self {
             edges: HashMap::new(),
         }
     }
-    pub fn add_transition(&mut self, time: Time, new_state: S) {
-        self.edges.insert(time, new_state);
+    pub fn add_transition(&mut self, time: Time, state: S) {
+        self.edges.insert(time, state);
     }
     pub fn get_state(&self, time: &Time) -> Result<S> {
         if self.edges.is_empty() {
             return Err(Error::EmptyTimeMachine);
         }
-        // let mut ret = self.edges.keys().next().unwrap().clone();
         let mut ret = Time::midnight();
         let mut lt = ret.clone();
         for edge in self.edges.keys() {
