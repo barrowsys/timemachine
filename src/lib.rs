@@ -65,6 +65,13 @@ impl<S: Clone + Default> TimeMachine<S> {
             ),
         }
     }
+    pub fn get_state_or_default(&self, time: &Time) -> Result<S> {
+        if self.edges.is_empty() {
+            Ok(S::default())
+        } else {
+            self.get_state(time)
+        }
+    }
 }
 impl<S: Clone> TimeMachine<S> {
     pub fn new() -> Self {
