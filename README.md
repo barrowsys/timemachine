@@ -2,7 +2,7 @@
 
 100% WIP and alpha, use at your own risk
 
-feature "napchart" (used by two examples) uses the https://napchart.com API which is in closed alpha
+feature "napchart" (used by two examples) uses the https://napchart.com API which is in alpha
 
 # Examples
 - cargo run --example auto_lights  
