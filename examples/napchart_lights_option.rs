@@ -16,7 +16,7 @@ use console::Term;
 use napchart::Napchart;
 #[allow(deprecated)]
 use std::thread::sleep_ms;
-use timemachine::{Clock, Time, TimeMachine};
+use timemachine::{Clock, TimeMachine};
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum State {
@@ -59,7 +59,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 if t.as_minutes() % 5 == 0 {
                     // napchart only allows 5 minute precision
                     err_count += 1;
-                    for i in 0..err_count {
+                    for _ in 0..err_count {
                         term.write_line("")?;
                     }
                     term.write_str(&format!("!!!!! at {}, state is None!!", &t))?;
@@ -70,6 +70,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 "ERROR                "
             }
         })?;
+        #[allow(deprecated)]
         sleep_ms(25);
         term.move_cursor_up(1)?;
         term.move_cursor_left(21)?;

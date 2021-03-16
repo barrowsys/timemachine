@@ -28,7 +28,7 @@ pub enum State {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut tm = TimeMachine::<State>::new();
-    let (dawn1, dawn2, dusk1, dusk2) = handle_input(&mut tm)?;
+    let (dawn1, dawn2, dusk1, dusk2) = handle_input()?;
     tm.add_transition(dawn1, State::DuskDawnRed);
     tm.add_transition(dawn2, State::DayWhite);
     tm.add_transition(dusk1, State::DuskDawnRed);
@@ -43,6 +43,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             State::DuskDawnRed => "the red light is on  ",
             State::DayWhite => "the white light is on",
         })?;
+        #[allow(deprecated)]
         sleep_ms(25);
         term.move_cursor_up(1)?;
         term.move_cursor_left(21)?;
@@ -52,7 +53,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     Ok(())
 }
 
-fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Time, Time)> {
+fn handle_input() -> std::io::Result<(Time, Time, Time, Time)> {
     let time_re = Regex::new(r"(\d?\d):(\d?\d)(?: ?([AP]M))?").unwrap();
     let dawn2: String = Input::new()
         .with_prompt("What time should the white light turn on in the morning?")
@@ -71,13 +72,13 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
         let minute: u8 = captures.get(2).unwrap().as_str().parse().unwrap();
         match captures.get(3) {
             Some(m) => {
-                hour = hour % 12;
+                hour %= 12;
                 if m.as_str() == "PM" {
                     hour += 12;
                 }
             }
             None => {
-                hour = hour % 24;
+                hour %= 24;
             }
         };
         Time::new_hm(hour, minute)
@@ -104,13 +105,13 @@ fn handle_input(tm: &mut TimeMachine<State>) -> std::io::Result<(Time, Time, Tim
         let minute: u8 = captures.get(2).unwrap().as_str().parse().unwrap();
         match captures.get(3) {
             Some(m) => {
-                hour = hour % 12;
+                hour %= 12;
                 if m.as_str() == "PM" {
                     hour += 12;
                 }
             }
             None => {
-                hour = hour % 24;
+                hour %= 24;
             }
         };
         Time::new_hm(hour, minute)

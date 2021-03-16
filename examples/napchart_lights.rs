@@ -16,7 +16,7 @@ use console::Term;
 use napchart::Napchart;
 #[allow(deprecated)]
 use std::thread::sleep_ms;
-use timemachine::{Clock, Time, TimeMachine};
+use timemachine::{Clock, TimeMachine};
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum State {
@@ -62,6 +62,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             State::DuskDawnRed => "the red light is on  ",
             State::DayWhite => "the white light is on",
         })?;
+        #[allow(deprecated)]
         sleep_ms(25);
         term.move_cursor_up(1)?;
         term.move_cursor_left(21)?;

@@ -14,7 +14,6 @@
 #![allow(missing_docs)]
 
 use std::collections::HashMap;
-use std::iter::FromIterator;
 
 mod time;
 pub use time::Clock;
@@ -58,11 +57,11 @@ impl<S: Clone + Default> TimeMachine<S> {
         R: Clone + Default,
     {
         TimeMachine {
-            edges: HashMap::from_iter(
-                self.edges
-                    .into_iter()
-                    .map(|(k, v)| (k, mapfn(v).unwrap_or_default())),
-            ),
+            edges: self
+                .edges
+                .into_iter()
+                .map(|(k, v)| (k, mapfn(v).unwrap_or_default()))
+                .collect(),
         }
     }
     pub fn get_state_or_default(&self, time: &Time) -> Result<S> {
@@ -85,7 +84,7 @@ impl<S: Clone> TimeMachine<S> {
         R: Clone,
     {
         TimeMachine {
-            edges: HashMap::from_iter(self.edges.into_iter().map(|(k, v)| (k, mapfn(v)))),
+            edges: self.edges.into_iter().map(|(k, v)| (k, mapfn(v))).collect(),
         }
     }
     pub fn add_transition(&mut self, time: Time, state: S) {
