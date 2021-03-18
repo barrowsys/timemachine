@@ -13,7 +13,6 @@
  */
 
 use console::Term;
-use napchart::Napchart;
 #[allow(deprecated)]
 use std::thread::sleep_ms;
 use timemachine::{Clock, TimeMachine};
@@ -31,7 +30,8 @@ impl Default for State {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let napchart = Napchart::get_from_server("3tbkt")?;
+    let api_client = napchart::api::blocking::NapchartClient::default();
+    let napchart = api_client.get("3tbkt")?;
 
     let tm: TimeMachine<Option<napchart::ElementData>> =
         TimeMachine::from_napchart(&napchart.lanes[0]);

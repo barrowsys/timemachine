@@ -13,7 +13,6 @@
  */
 
 use console::Term;
-use napchart::Napchart;
 #[allow(deprecated)]
 use std::thread::sleep_ms;
 use timemachine::{Clock, TimeMachine};
@@ -26,7 +25,8 @@ pub enum State {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let napchart = Napchart::get_from_server("cse2j")?;
+    let api_client = napchart::api::blocking::NapchartClient::default();
+    let napchart = api_client.get("cse2j")?;
 
     let tm: TimeMachine<Option<napchart::ElementData>> =
         TimeMachine::from_napchart(&napchart.lanes[0]);

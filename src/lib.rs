@@ -34,7 +34,7 @@ pub struct TimeMachine<S: Clone> {
 impl TimeMachine<Option<napchart::ElementData>> {
     pub fn from_napchart(lane: &napchart::ChartLane) -> TimeMachine<Option<napchart::ElementData>> {
         let mut tm = TimeMachine::new();
-        for elem in lane.elements.iter() {
+        for elem in lane.elements_iter() {
             tm.add_transition(Time::from_minutes(elem.start), Some(elem.data.clone()));
             if !tm.edges.contains_key(&Time::from_minutes(elem.end)) {
                 tm.add_transition(Time::from_minutes(elem.end), None);
