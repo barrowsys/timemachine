@@ -3,7 +3,7 @@ on: push
 name: Continuous integration
 
 jobs:
-  ci-full:
+  formatting:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,14 +24,6 @@ jobs:
 
       - uses: actions-rs/cargo@v1
         with:
-          command: build
-
-      - uses: actions-rs/cargo@v1
-        with:
-          command: test
-
-      - uses: actions-rs/cargo@v1
-        with:
           command: fmt
           args: --all -- --check
 
@@ -39,7 +31,7 @@ jobs:
         with:
           command: clippy
           args: -- -D warnings
-  ci-min:
+  build-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
