@@ -427,9 +427,9 @@ dependencies = [
 
 [[package]]
 name = "napchart"
-version = "0.1.1-alpha"
+version = "0.1.4-alpha"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a87c161374e5c5e5fe2d5ca5d8dbbb7a45a14f054ed6eeb7c1c43ad4b984fe70"
+checksum = "38ae42e19af840d3fb1ca9ffa308efa9dba2093bbd09a0b2f209fd95883d38a1"
 dependencies = [
  "reqwest",
  "serde",

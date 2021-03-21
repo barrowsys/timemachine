@@ -10,7 +10,7 @@ repository = "https://github.com/barrowsys/timemachine"
 categories = ["date-and-time", "data-structures"]
 
 [dependencies]
-napchart = { version = "0.1.1-alpha", optional = true }
+napchart = { version = "0.1.4-alpha", optional = true }
 
 [dev-dependencies]
 dialoguer = "0.7.1"

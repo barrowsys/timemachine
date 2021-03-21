@@ -25,7 +25,7 @@ pub enum State {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let api_client = napchart::api::blocking::NapchartClient::default();
+    let api_client = napchart::api::BlockingClient::default();
     let napchart = api_client.get("cse2j")?;
 
     let tm: TimeMachine<Option<napchart::ElementData>> =
@@ -37,6 +37,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             match e.color.as_str() {
                 "red" => Some(State::DuskDawnRed),
                 "gray" => Some(State::NightDark),
+                "blue" => Some(State::DayWhite),
                 _ => None,
             }
         } else {

@@ -30,7 +30,7 @@ impl Default for State {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let api_client = napchart::api::blocking::NapchartClient::default();
+    let api_client = napchart::api::BlockingClient::default();
     let napchart = api_client.get("3tbkt")?;
 
     let tm: TimeMachine<Option<napchart::ElementData>> =
