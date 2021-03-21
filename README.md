@@ -12,11 +12,11 @@ feature "napchart" (used by two examples) uses the https://napchart.com API whic
 
 add dependency to your cargo.toml:
 ```
-timemachine = "0.2.0-alpha"
+timemachine = "0.2.1"
 ```
 to enable napchart support:
 ```
-timemachine = [ version = "0.2.0-alpha", features = ["napchart"] ]
+timemachine = [ version = "0.2.1", features = ["napchart"] ]
 ```
 
 # Examples
