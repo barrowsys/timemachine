@@ -4,7 +4,7 @@
 [![Crates.io](https://img.shields.io/crates/v/timemachine)](https://crates.io/crates/timemachine/)
 [![Docs.rs](https://docs.rs/timemachine/badge.svg)](https://docs.rs/timemachine)
 
-100% WIP and alpha, use at your own risk
+100% WIP and alpha, use at your own risk. documentation WIP.
 
 feature "napchart" (used by two examples) uses the https://napchart.com API which is in alpha
 
