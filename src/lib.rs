@@ -12,6 +12,11 @@
  * --------------------
  */
 #![allow(missing_docs)]
+//! The `timemachine` crate handles daily time-based state transitions
+//!
+//! [![GitHub last commit](https://img.shields.io/github/last-commit/barrowsys/timemachine)](https://github.com/barrowsys/timemachine)
+//! [![Crates.io](https://img.shields.io/crates/v/timemachine)](https://crates.io/crates/timemachine/)
+//! [![Docs.rs](https://docs.rs/timemachine/badge.svg)](https://docs.rs/timemachine)
 
 use std::collections::HashMap;
 
