@@ -427,9 +427,9 @@ dependencies = [
 
 [[package]]
 name = "napchart"
-version = "0.1.4-alpha"
+version = "0.1.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "38ae42e19af840d3fb1ca9ffa308efa9dba2093bbd09a0b2f209fd95883d38a1"
+checksum = "3332aa06cc819948cf50c5e235cb70059e79c7031cc4e223c2c038f217423a01"
 dependencies = [
  "reqwest",
  "serde",
@@ -836,7 +836,7 @@ dependencies = [
 
 [[package]]
 name = "timemachine"
-version = "0.2.1"
+version = "0.3.0"
 dependencies = [
  "console 0.14.0",
  "dialoguer",

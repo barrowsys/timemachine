@@ -87,7 +87,7 @@ fn handle_input() -> std::io::Result<(Time, Time, Time, Time)> {
         .with_prompt("How many minutes before should the red light turn on?")
         .default(60)
         .interact_text()?;
-    let dawn1 = Time::from_seconds(dawn2.as_seconds() - (dawn_length * 60) as u32);
+    let dawn1 = Time::from_seconds((dawn2.as_seconds() as i32) - (dawn_length * 60) as i32);
     let dusk2: String = Input::new()
         .with_prompt("What time should the white light turn off in the evening?")
         .default("21:00".into())
@@ -120,6 +120,6 @@ fn handle_input() -> std::io::Result<(Time, Time, Time, Time)> {
         .with_prompt("How many minutes after should the red light stay on?")
         .default(60)
         .interact_text()?;
-    let dusk2 = Time::from_seconds(dusk1.as_seconds() + (dusk_length * 60) as u32);
+    let dusk2 = Time::from_seconds((dusk1.as_seconds() as i32) + (dusk_length * 60) as i32);
     Ok((dawn1, dawn2, dusk1, dusk2))
 }
