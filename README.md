@@ -1,9 +1,9 @@
 # timemachine
 
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![GitHub last commit](https://img.shields.io/github/last-commit/barrowsys/timemachine)](https://github.com/barrowsys/timemachine)
 [![Crates.io](https://img.shields.io/crates/v/timemachine)](https://crates.io/crates/timemachine/)
 [![Docs.rs](https://docs.rs/timemachine/badge.svg)](https://docs.rs/timemachine)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 Handling of daily time-based state transitions made easy.
 
@@ -22,11 +22,11 @@ Feature "napchart" (used by two examples) uses the https://napchart.com API whic
 
 Add dependency to your Cargo.toml:
 ```
-timemachine = "0.3.0"
+timemachine = "0.3.1"
 ```
 to enable napchart support:
 ```
-timemachine = [ version = "0.3.0", features = ["napchart"] ]
+timemachine = [ version = "0.3.1", features = ["napchart"] ]
 ```
 
 ## Examples
