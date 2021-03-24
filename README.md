@@ -1,9 +1,9 @@
 # timemachine
 
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 [![GitHub last commit](https://img.shields.io/github/last-commit/barrowsys/timemachine)](https://github.com/barrowsys/timemachine)
 [![Crates.io](https://img.shields.io/crates/v/timemachine)](https://crates.io/crates/timemachine/)
 [![Docs.rs](https://docs.rs/timemachine/badge.svg)](https://docs.rs/timemachine)
-[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 
 Handling of daily time-based state transitions made easy.
 
