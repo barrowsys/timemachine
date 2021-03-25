@@ -370,11 +370,18 @@ impl<S: Clone + std::fmt::Display> TimeMachine<S> {
         for (time, time2) in times.iter().zip(times2.iter()) {
             let ftime = format!("t{}", time).replace(":", "_");
             let ftime2 = format!("t{}", time2).replace(":", "_");
-            buffer.push_str(&format!("    {} [label=\"{}\"]\n", ftime, self.edges.get(time).unwrap()));
-            buffer.push_str(&format!("    {} -> {} [label=\"{}\"]\n", ftime, ftime2, time2));
+            buffer.push_str(&format!(
+                "    {} [label=\"{}\"]\n",
+                ftime,
+                self.edges.get(time).unwrap()
+            ));
+            buffer.push_str(&format!(
+                "    {} -> {} [label=\"{}\"]\n",
+                ftime, ftime2, time2
+            ));
         }
         // for edge in self.edges.iter() {
-        //     buffer.push_str(format!("    {} -> {} [label=\"{}\"]\n", 
+        //     buffer.push_str(format!("    {} -> {} [label=\"{}\"]\n",
         // }
         Ok(format!("digraph {{\n{}}}", buffer))
     }
