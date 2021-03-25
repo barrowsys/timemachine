@@ -9,6 +9,9 @@ description = "time-based state machine for daily scheduled state transitions"
 repository = "https://github.com/barrowsys/timemachine"
 categories = ["date-and-time", "data-structures"]
 
+[features]
+graphviz = []
+
 [package.metadata.docs.rs]
 all-features = true
 
@@ -28,3 +31,7 @@ required-features = ["napchart"]
 [[example]]
 name = "napchart_lights_option"
 required-features = ["napchart"]
+
+[[example]]
+name = "graphviz"
+required-features = ["graphviz", "napchart"]

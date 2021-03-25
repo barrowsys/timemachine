@@ -44,6 +44,18 @@ use error::Result;
 ///
 /// If the crate feature `napchart` is enabled, you can also use
 /// [`from_napchart`](#method.from_napchart).
+/// ### Examples
+/// Simple AM = true/PM = false timemachine
+/// ```
+/// use timemachine::Time;
+/// use timemachine::TimeMachine;
+///
+/// let mut tm: TimeMachine<bool> = TimeMachine::new();
+/// tm.add_transition(Time::midnight(), true);
+/// tm.add_transition(Time::noon(), false);
+/// assert_eq!(tm.get_state(&Time::new_h(3)).unwrap(), true);
+/// assert_eq!(tm.get_state(&Time::new_h(20)).unwrap(), false);
+/// ```
 #[derive(Debug, Default)]
 pub struct TimeMachine<S: Clone> {
     edges: HashMap<Time, S>,
@@ -338,5 +350,32 @@ impl TimeMachine<Option<napchart::ElementData>> {
             }
         }
         tm
+    }
+}
+#[cfg(feature = "graphviz")]
+impl<S: Clone + std::fmt::Display> TimeMachine<S> {
+    /// WIP function to generate a graphviz spec from a timemachine
+    pub fn generate_graphviz(&self) -> Result<String> {
+        if self.edges.len() == 0 {
+            return Err(ErrorKind::EmptyTimeMachine);
+        }
+        let mut buffer = String::new();
+        let mut times: Vec<&Time> = self.edges.keys().collect();
+        times.sort();
+        let mut times2 = times.clone();
+        let time2 = times2.remove(0);
+        times2.push(time2);
+        let midnight = self.get_edges(&Time::midnight())?.0;
+        buffer.push_str(&format!("    t{}\n", midnight.0).replace(":", "_"));
+        for (time, time2) in times.iter().zip(times2.iter()) {
+            let ftime = format!("t{}", time).replace(":", "_");
+            let ftime2 = format!("t{}", time2).replace(":", "_");
+            buffer.push_str(&format!("    {} [label=\"{}\"]\n", ftime, self.edges.get(time).unwrap()));
+            buffer.push_str(&format!("    {} -> {} [label=\"{}\"]\n", ftime, ftime2, time2));
+        }
+        // for edge in self.edges.iter() {
+        //     buffer.push_str(format!("    {} -> {} [label=\"{}\"]\n", 
+        // }
+        Ok(format!("digraph {{\n{}}}", buffer))
     }
 }
