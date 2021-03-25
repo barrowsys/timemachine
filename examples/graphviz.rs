@@ -12,16 +12,16 @@
  * --------------------
  */
 
-use timemachine::{Time, TimeMachine};
+use timemachine::TimeMachine;
 
-fn oldmain() {
-    let mut tm: TimeMachine<i32> = TimeMachine::new();
-    tm.add_transition(Time::new_h(3), -50);
-    tm.add_transition(Time::new_h(6), 73);
-    tm.add_transition(Time::noon(), 25);
-    tm.add_transition(Time::new_h(18), -37);
-    println!("{}", tm.generate_graphviz().unwrap());
-}
+// fn oldmain() {
+//     let mut tm: TimeMachine<i32> = TimeMachine::new();
+//     tm.add_transition(Time::new_h(3), -50);
+//     tm.add_transition(Time::new_h(6), 73);
+//     tm.add_transition(Time::noon(), 25);
+//     tm.add_transition(Time::new_h(18), -37);
+//     println!("{}", tm.generate_graphviz().unwrap());
+// }
 
 #[derive(Debug, PartialEq, Clone)]
 pub enum State {

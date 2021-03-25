@@ -356,7 +356,7 @@ impl TimeMachine<Option<napchart::ElementData>> {
 impl<S: Clone + std::fmt::Display> TimeMachine<S> {
     /// WIP function to generate a graphviz spec from a timemachine
     pub fn generate_graphviz(&self) -> Result<String> {
-        if self.edges.len() == 0 {
+        if self.edges.is_empty() {
             return Err(ErrorKind::EmptyTimeMachine);
         }
         let mut buffer = String::new();
