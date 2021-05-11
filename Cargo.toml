@@ -1,9 +1,9 @@
 [package]
 name = "timemachine"
-version = "0.3.1"
+version = "0.3.2"
 authors = ["Ezra Barrow <barrow@tilde.team>"]
 edition = "2018"
-license = "MIT"
+license-file = "LICENSE"
 readme = "README.md"
 description = "time-based state machine for daily scheduled state transitions"
 repository = "https://github.com/barrowsys/timemachine"
